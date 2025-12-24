@@ -29,7 +29,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--data_path",
         type=str,
-        default=str(Path("Stroke_preprocessed.csv"),
+        default=str("Stroke_preprocessed.csv"),
         help="Path to preprocessed CSV produced by Eksperimen.ipynb.",
     )
     p.add_argument(
