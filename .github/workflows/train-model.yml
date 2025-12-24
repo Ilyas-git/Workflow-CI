@@ -1,8 +1,11 @@
-name: MLflow CI
+name: Train Model (MLflow)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
+    paths:
+      - "MLProject/**"
+      - ".github/workflows/**"
   workflow_dispatch:
 
 jobs:
@@ -10,23 +13,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v3
+      - name: Setup Python 3.12.7
+        uses: actions/setup-python@v5
         with:
-          auto-update-conda: true
-          use-mamba: true
+          python-version: "3.12.7"
 
-      - name: Install MLflow
-        run: pip install mlflow==2.19.0
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mlflow==2.19.0 numpy pandas scikit-learn joblib
+
+      - name: Validate dataset exists
+        run: |
+          ls -la MLProject
+          test -f MLProject/Stroke_preprocessing.csv
 
       - name: Run MLflow Project
-        shell: bash -l {0}
-        run: mlflow run MLProject
+        env:
+          TRACKING_DIR: ${{ github.workspace }}/MLProject/mlruns_ci
+          MLFLOW_TRACKING_URI: file:${{ github.workspace }}/MLProject/mlruns_ci
+        run: |
+          mkdir -p "$TRACKING_DIR"
 
-      - name: Upload MLflow Artifacts
+          # Jalankan project; data_path relatif terhadap folder MLProject
+          mlflow run MLProject --env-manager local -e main \
+            -P data_path="Stroke_preprocessing.csv" \
+            -P model="logreg" \
+            -P tracking_dir="$TRACKING_DIR"
+
+      - name: Upload MLflow runs (artifact)
         uses: actions/upload-artifact@v4
         with:
-          name: mlflow-artifacts
-          path: mlruns
+          name: mlruns_ci
+          path: MLProject/mlruns_ci
+          if-no-files-found: error
