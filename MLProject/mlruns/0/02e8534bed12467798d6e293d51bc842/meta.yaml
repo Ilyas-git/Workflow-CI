@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Downloads/Workflow-CI/MLProject/mlruns/0/02e8534bed12467798d6e293d51bc842/artifacts
+end_time: 1766575029534
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 02e8534bed12467798d6e293d51bc842
+run_name: fearless-pig-499
+run_uuid: 02e8534bed12467798d6e293d51bc842
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766575025956
+status: 3
+tags: []
+user_id: ACER

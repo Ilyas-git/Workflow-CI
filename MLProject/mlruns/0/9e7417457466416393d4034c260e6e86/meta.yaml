@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Downloads/Workflow-CI/MLProject/mlruns/0/9e7417457466416393d4034c260e6e86/artifacts
+end_time: 1766574960109
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 9e7417457466416393d4034c260e6e86
+run_name: nosy-doe-336
+run_uuid: 9e7417457466416393d4034c260e6e86
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766574954715
+status: 3
+tags: []
+user_id: ACER

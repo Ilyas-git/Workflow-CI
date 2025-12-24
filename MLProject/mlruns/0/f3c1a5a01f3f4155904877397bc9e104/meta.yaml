@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Downloads/Workflow-CI/MLProject/mlruns/0/f3c1a5a01f3f4155904877397bc9e104/artifacts
+end_time: 1766574973725
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f3c1a5a01f3f4155904877397bc9e104
+run_name: resilient-slug-767
+run_uuid: f3c1a5a01f3f4155904877397bc9e104
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766574969817
+status: 3
+tags: []
+user_id: ACER
