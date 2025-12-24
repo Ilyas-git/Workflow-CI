@@ -39,7 +39,7 @@ jobs:
       - name: Run mlflow project
         run: |
           mlflow run MLProject --env-manager local -e main \
-            -P data_path="namadataset_preprocessing/Stroke_preprocessed.csv" \
+            -P data_path="namadataset_preprocessing/Stroke_preprocessing.csv" \
             -P model="logreg" \
             -P tracking_dir="mlruns_ci"
 
