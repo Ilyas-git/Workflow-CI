@@ -1,22 +1,3 @@
-"""Train a Scikit-Learn model on the preprocessed Stroke dataset and track the run locally with MLflow.
-
-Requirements (high-level):
-- Uses MLflow Tracking UI stored locally (./mlruns by default)
-- Uses MLflow autolog on this script
-- No hyperparameter tuning (single training run)
-
-Expected input:
-- A preprocessed CSV produced by your Eksperimen.ipynb, e.g.
-  preprocessing/healthcare-dataset-stroke-data_preprocessing/stroke_preprocessed.csv
-
-Usage examples:
-  python modelling.py
-  python modelling.py --data_path preprocessing/healthcare-dataset-stroke-data_preprocessing/stroke_preprocessed.csv
-  python modelling.py --model random_forest
-
-Start the MLflow UI (from the same folder):
-  mlflow ui --backend-store-uri ./mlruns --host 127.0.0.1 --port 5000
-"""
 
 from __future__ import annotations
 
@@ -48,7 +29,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--data_path",
         type=str,
-        default=str(Path("preprocessing") / "Stroke_preprocessed.csv"),
+        default=str(Path("Stroke_preprocessed.csv"),
         help="Path to preprocessed CSV produced by Eksperimen.ipynb.",
     )
     p.add_argument(
