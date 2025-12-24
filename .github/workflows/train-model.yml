@@ -1,9 +1,12 @@
-name: MLflow CI
+name: Train Model (MLflow Project)
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
+  push:
+    branches: ["main", "master"]
+    paths:
+      - "MLProject/**"
+      - ".github/workflows/train-model.yml"
 
 jobs:
   train:
@@ -22,18 +25,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install mlflow==2.19.0 numpy pandas scikit-learn joblib
 
-      - name: Run MLflow Project (local env)
+      - name: Run MLflow Project
+        env:
+          # simpan tracking di folder sementara runner (bukan repo)
+          TRACKING_DIR: ${{ runner.temp }}/mlruns_ci
+          MLFLOW_TRACKING_URI: file:${{ runner.temp }}/mlruns_ci
         run: |
-          mkdir -p MLProject/mlruns_ci
-          export MLFLOW_TRACKING_URI="file:${GITHUB_WORKSPACE}/MLProject/mlruns_ci"
+          mkdir -p "$TRACKING_DIR"
 
+          # pastikan dataset sesuai struktur ketentuan
+          test -f "MLProject/namadataset_preprocessing/Stroke_preprocessing.csv"
+
+          # jalankan project
           mlflow run MLProject --env-manager local -e main \
-            -P data_path="Stroke_preprocessing.csv" \
+            -P data_path="namadataset_preprocessing/Stroke_preprocessing.csv" \
             -P model="logreg" \
-            -P tracking_dir="mlruns_ci"
+            -P tracking_dir="$TRACKING_DIR"
 
-      - name: Upload MLflow runs
+      - name: Upload MLflow runs (artifact)
         uses: actions/upload-artifact@v4
         with:
           name: mlruns_ci
-          path: MLProject/mlruns_ci
+          path: ${{ runner.temp }}/mlruns_ci
+          if-no-files-found: error
