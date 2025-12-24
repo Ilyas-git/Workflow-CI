@@ -4,12 +4,6 @@ conda_env: conda.yaml
 
 entry_points:
   main:
-    parameters:
-      data_path: {type: str, default: "namadataset_preprocessing/Stroke_preprocessed.csv"}
-      model: {type: str, default: "logreg"}
-      tracking_dir: {type: str, default: "mlruns_ci"}
     command: >
       python modelling.py
-      --data_path {data_path}
-      --model {model}
-      --tracking_dir {tracking_dir}
+      
