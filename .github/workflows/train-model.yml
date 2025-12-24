@@ -1,0 +1,63 @@
+name: Train Model (MLflow)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main", "master" ]
+    paths:
+      - "MLProject/**"
+      - ".github/workflows/**"
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up job
+        run: echo "Job started"
+
+      - name: Run actions/checkout@v3
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.7"
+
+      - name: Check Env
+        run: |
+          python --version
+          pip --version
+          ls -la
+          ls -la MLProject
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mlflow==2.19.0
+
+      - name: Run mlflow project
+        run: |
+          mlflow run MLProject -e main \
+            -P data_path="namadataset_preprocessing/Stroke_preprocessed.csv" \
+            -P model="logreg" \
+            -P tracking_dir="mlruns_ci"
+
+      - name: Get latest MLflow run_id
+        run: |
+          python - <<'PY'
+from pathlib import Path
+
+base = Path("MLProject/mlruns_ci")
+exp_dirs = [p for p in base.iterdir() if p.is_dir() and p.name.isdigit()] if base.exists() else []
+if not exp_dirs:
+    raise SystemExit("No experiment directory found under MLProject/mlruns_ci")
+
+exp = max(exp_dirs, key=lambda p: p.stat().st_mtime)
+run_dirs = [p for p in exp.iterdir() if p.is_dir() and len(p.name) > 5]
+if not run_dirs:
+    raise SystemExit("No run directory found under experiment")
+
+run = max(run_dirs, key=lambda p: p.stat().st_mtime)
+print("LATEST_RUN_ID=", run.name)
+PY
