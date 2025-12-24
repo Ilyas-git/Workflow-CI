@@ -38,6 +38,9 @@ jobs:
 
       - name: Run mlflow project
         run: |
+          mkdir -p MLProject/mlruns_ci
+          export MLFLOW_TRACKING_URI="file://${GITHUB_WORKSPACE}/MLProject/mlruns_ci"
+
           mlflow run MLProject --env-manager local -e main \
             -P data_path="Stroke_preprocessing.csv" \
             -P model="logreg" \
