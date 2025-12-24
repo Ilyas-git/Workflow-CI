@@ -1,1 +1,0 @@
-https://hub.docker.com/repository/docker/ilyas240104/stroke_prediction_model/general
