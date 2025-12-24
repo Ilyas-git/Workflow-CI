@@ -1,9 +1,9 @@
-name: Train Model (MLflow)
+name: Train Model (MLflow) - Basic
 
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
     paths:
       - "MLProject/**"
       - ".github/workflows/**"
