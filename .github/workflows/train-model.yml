@@ -34,11 +34,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install mlflow==2.19.0
+          pip install mlflow==2.19.0 numpy pandas scikit-learn joblib
 
       - name: Run mlflow project
         run: |
-          mlflow run MLProject -e main \
+          mlflow run MLProject --env-manager local -e main \
             -P data_path="namadataset_preprocessing/Stroke_preprocessed.csv" \
             -P model="logreg" \
             -P tracking_dir="mlruns_ci"
