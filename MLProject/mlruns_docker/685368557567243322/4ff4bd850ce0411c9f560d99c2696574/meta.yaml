@@ -1,0 +1,15 @@
+artifact_uri: file:///app/mlruns_docker/685368557567243322/4ff4bd850ce0411c9f560d99c2696574/artifacts
+end_time: 1766554045370
+entry_point_name: ''
+experiment_id: '685368557567243322'
+lifecycle_stage: active
+run_id: 4ff4bd850ce0411c9f560d99c2696574
+run_name: logreg-no-tuning
+run_uuid: 4ff4bd850ce0411c9f560d99c2696574
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766554040121
+status: 3
+tags: []
+user_id: root
