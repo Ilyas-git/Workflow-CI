@@ -1,6 +1,0 @@
-artifact_location: file:///app/mlruns_docker/685368557567243322
-creation_time: 1766554039721
-experiment_id: '685368557567243322'
-last_update_time: 1766554039721
-lifecycle_stage: active
-name: stroke-prediction

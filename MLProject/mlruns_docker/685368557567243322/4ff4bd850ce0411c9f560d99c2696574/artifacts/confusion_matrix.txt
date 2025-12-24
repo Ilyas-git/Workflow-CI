@@ -1,3 +1,0 @@
-Confusion Matrix (rows=true, cols=pred):
-[[31  8]
- [ 1  0]]
