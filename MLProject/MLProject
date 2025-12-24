@@ -1,10 +1,8 @@
 name: stroke-mlflow-project
 
-experiment_name: Skilled_Modelling_Tuning
-
 conda_env: conda.yaml
 
 entry_points:
   main:
     command: >
-      python modelling_tuning.py
+      python modelling.py
