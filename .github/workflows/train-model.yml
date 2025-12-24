@@ -46,18 +46,15 @@ jobs:
       - name: Get latest MLflow run_id
         run: |
           python - <<'PY'
-from pathlib import Path
-
-base = Path("MLProject/mlruns_ci")
-exp_dirs = [p for p in base.iterdir() if p.is_dir() and p.name.isdigit()] if base.exists() else []
-if not exp_dirs:
-    raise SystemExit("No experiment directory found under MLProject/mlruns_ci")
-
-exp = max(exp_dirs, key=lambda p: p.stat().st_mtime)
-run_dirs = [p for p in exp.iterdir() if p.is_dir() and len(p.name) > 5]
-if not run_dirs:
-    raise SystemExit("No run directory found under experiment")
-
-run = max(run_dirs, key=lambda p: p.stat().st_mtime)
-print("LATEST_RUN_ID=", run.name)
-PY
+          from pathlib import Path
+          base = Path("MLProject/mlruns_ci")
+          exp_dirs = [p for p in base.iterdir() if p.is_dir() and p.name.isdigit()] if base.exists() else []
+          if not exp_dirs:
+              raise SystemExit("No experiment directory found under MLProject/mlruns_ci")
+          exp = max(exp_dirs, key=lambda p: p.stat().st_mtime)
+          run_dirs = [p for p in exp.iterdir() if p.is_dir() and len(p.name) > 5]
+          if not run_dirs:
+              raise SystemExit("No run directory found under experiment")
+          run = max(run_dirs, key=lambda p: p.stat().st_mtime)
+          print("LATEST_RUN_ID=", run.name)
+          PY
