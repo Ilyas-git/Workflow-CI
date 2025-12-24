@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Downloads/Workflow-CI/MLProject/mlruns/0/0839181e7e4b4ce38cbb9739b6e8649a/artifacts
+end_time: 1766573477151
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0839181e7e4b4ce38cbb9739b6e8649a
+run_name: zealous-moose-791
+run_uuid: 0839181e7e4b4ce38cbb9739b6e8649a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766573471559
+status: 3
+tags: []
+user_id: ACER

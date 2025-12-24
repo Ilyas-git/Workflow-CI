@@ -1,14 +1,10 @@
-name: stroke-prediction-mlflow
+name: stroke-mlflow-project
+
+experiment_name: Skilled_Modelling_Tuning
+
+conda_env: conda.yaml
 
 entry_points:
   main:
-    parameters:
-      data_path: {type: path, default: "Stroke_preprocessing.csv"}
-      model: {type: str, default: "logreg"}
-      tracking_dir: {type: str, default: "mlruns_ci"}
-      experiment_name: {type: str, default: "stroke-prediction"}
     command: >
-      python modelling.py
-      --data_path {data_path}
-      --model {model}
-      --tracking_dir {tracking_dir}
+      python modelling_tuning.py

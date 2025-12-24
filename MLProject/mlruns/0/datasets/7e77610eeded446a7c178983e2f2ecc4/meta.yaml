@@ -1,0 +1,12 @@
+digest: 1015e8cf
+name: dataset
+profile: '{"num_rows": 160, "num_elements": 1280}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "age", "required": true}, {"type":
+  "long", "name": "hypertension", "required": true}, {"type": "long", "name": "heart_disease",
+  "required": true}, {"type": "double", "name": "avg_glucose_level", "required": true},
+  {"type": "double", "name": "bmi", "required": true}, {"type": "double", "name":
+  "feature_0", "required": true}, {"type": "double", "name": "feature_1", "required":
+  true}, {"type": "double", "name": "feature_2", "required": true}]}'
+source: '{"tags": {"mlflow.user": "ACER", "mlflow.source.name": "d:/Downloads/Workflow-CI/MLProject/modelling.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "16eafd843b62c96ef73575040d6c385ad04a121d"}}'
+source_type: code

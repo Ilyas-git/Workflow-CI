@@ -1,4 +1,4 @@
-name: stroke-mlflow
+name: mlflow-env
 channels:
   - conda-forge
 dependencies:
@@ -9,4 +9,6 @@ dependencies:
       - numpy
       - pandas
       - scikit-learn
-      - joblib>=1.2,<2
+      - scipy
+
+
