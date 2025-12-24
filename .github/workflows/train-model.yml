@@ -1,8 +1,8 @@
-name: Train Model (MLflow)
+name: MLflow CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
     paths:
       - "MLProject/**"
       - ".github/workflows/**"
@@ -21,30 +21,37 @@ jobs:
         with:
           python-version: "3.12.7"
 
-      - name: Install dependencies
+      - name: Install MLflow + deps
         run: |
           python -m pip install --upgrade pip
           pip install mlflow==2.19.0 numpy pandas scikit-learn joblib
 
-      - name: Validate dataset exists
+      - name: Validate dataset exists (CSV in MLProject root)
         run: |
           ls -la MLProject
           test -f MLProject/Stroke_preprocessing.csv
 
+      - name: Init MLflow tracking store (create Default exp id=0)
+        env:
+          TRACKING_DIR: ${{ github.workspace }}/MLProject/mlruns_ci
+          MLFLOW_TRACKING_URI: file://${{ github.workspace }}/MLProject/mlruns_ci
+        run: |
+          mkdir -p "$TRACKING_DIR"
+          # Ini yang mencegah error "experiment ID 0 not found"
+          mlflow experiments create -n Default || true
+
       - name: Run MLflow Project
         env:
           TRACKING_DIR: ${{ github.workspace }}/MLProject/mlruns_ci
-          MLFLOW_TRACKING_URI: file:${{ github.workspace }}/MLProject/mlruns_ci
+          MLFLOW_TRACKING_URI: file://${{ github.workspace }}/MLProject/mlruns_ci
         run: |
-          mkdir -p "$TRACKING_DIR"
-
-          # Jalankan project; data_path relatif terhadap folder MLProject
           mlflow run MLProject --env-manager local -e main \
+            --experiment-name "stroke-prediction" \
             -P data_path="Stroke_preprocessing.csv" \
             -P model="logreg" \
             -P tracking_dir="$TRACKING_DIR"
 
-      - name: Upload MLflow runs (artifact)
+      - name: Upload MLflow Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: mlruns_ci
