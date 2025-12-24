@@ -45,8 +45,12 @@ jobs:
           TRACKING_DIR: ${{ github.workspace }}/MLProject/mlruns_ci
           MLFLOW_TRACKING_URI: file://${{ github.workspace }}/MLProject/mlruns_ci
         run: |
-          mlflow run MLProject --env-manager local -e main \
-            --experiment-name "stroke-prediction" \
+          mkdir -p "$TRACKING_DIR"
+
+          # pindah dulu ke folder MLProject agar path dataset pasti benar
+          cd MLProject
+
+          mlflow run . --env-manager local -e main \
             -P data_path="Stroke_preprocessing.csv" \
             -P model="logreg" \
             -P tracking_dir="$TRACKING_DIR"
